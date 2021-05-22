@@ -10,7 +10,7 @@ import {
 import InfoBox from "./InfoBox";
 import LineGraph from "./LineGraph";
 import Table from "./Table";
-import { sortData, prettyPrintStat } from "./util";
+import { sortData, formatNumericsForDisplay } from "./util";
 import numeral from "numeral";
 import Map from "./Map";
 import "leaflet/dist/leaflet.css";
@@ -22,8 +22,8 @@ const App = () => {
   const [mapCountries, setMapCountries] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [casesType, setCasesType] = useState("cases");
-  const [mapCenter, setMapCenter] = useState({ lat: 34.80746, lng: -40.4796 });
-  const [mapZoom, setMapZoom] = useState(3);
+  const [mapCenter, setMapCenter] = useState({ lat: 26.3351, lng: 17.2283 });
+  const [mapZoom, setMapZoom] = useState(2);
 
   useEffect(() => {
     fetch("https://disease.sh/v3/covid-19/all")
@@ -92,26 +92,24 @@ const App = () => {
         <div className="app__stats">
           <InfoBox
             onClick={(e) => setCasesType("cases")}
-            title="Coronavirus Cases"
-            isRed
+            title="Cases"
             active={casesType === "cases"}
-            cases={prettyPrintStat(countryInfo.todayCases)}
-            total={numeral(countryInfo.cases).format("0.0a")}
+            cases={`+${formatNumericsForDisplay(countryInfo.todayCases)}`}
+            total={formatNumericsForDisplay(countryInfo.cases)}
           />
           <InfoBox
             onClick={(e) => setCasesType("recovered")}
             title="Recovered"
             active={casesType === "recovered"}
-            cases={prettyPrintStat(countryInfo.todayRecovered)}
-            total={numeral(countryInfo.recovered).format("0.0a")}
+            cases={`+${formatNumericsForDisplay(countryInfo.todayRecovered)}`}
+            total={formatNumericsForDisplay(countryInfo.recovered)}
           />
           <InfoBox
             onClick={(e) => setCasesType("deaths")}
             title="Deaths"
-            isRed
             active={casesType === "deaths"}
-            cases={prettyPrintStat(countryInfo.todayDeaths)}
-            total={numeral(countryInfo.deaths).format("0.0a")}
+            cases={`+${formatNumericsForDisplay(countryInfo.todayDeaths)}`}
+            total={formatNumericsForDisplay(countryInfo.deaths)}
           />
         </div>
         <Map

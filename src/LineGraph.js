@@ -37,7 +37,6 @@ const options = {
           display: false,
         },
         ticks: {
-          // Include a dollar sign in the ticks
           callback: function (value, index, values) {
             return numeral(value).format("0a");
           },
@@ -63,8 +62,24 @@ const buildChartData = (data, casesType) => {
   return chartData;
 };
 
-function LineGraph({ casesType }) {
+function LineGraph({ casesType }) {  
   const [data, setData] = useState({});
+  
+  
+  const decideLineColor = (casesType) => {
+    if(casesType === 'cases') return '#CC1034'
+    else if(casesType === 'recovered') return '#006200'
+    else return '#800080'
+  }
+
+  const decideBackgroundColor = (casesType) => {
+      if(casesType === 'cases') return 'rgba(204, 16, 52, 0.5)'
+      else if(casesType === 'recovered') return 'rgba(0, 128, 0, 0.5)'
+      else return 'rgba(128, 0, 128, 0.5)'
+  }
+
+  const lineColor = decideLineColor(casesType);
+  const backgroundColor = decideBackgroundColor(casesType);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -90,8 +105,8 @@ function LineGraph({ casesType }) {
           data={{
             datasets: [
               {
-                backgroundColor: "rgba(204, 16, 52, 0.5)",
-                borderColor: "#CC1034",
+                backgroundColor: backgroundColor,
+                borderColor: lineColor,
                 data: data,
               },
             ],

@@ -10,16 +10,16 @@ const casesTypeColors = {
     multiplier: 800,
   },
   recovered: {
-    hex: "#7dd71d",
-    rgb: "rgb(125, 215, 29)",
-    half_op: "rgba(125, 215, 29, 0.5)",
-    multiplier: 1200,
+    hex: "#006200",
+    rgb: "rgb(0, 128, 0)",
+    half_op: "rgba(0, 128, 0, 0.5)",
+    multiplier: 800,
   },
   deaths: {
-    hex: "#fb4443",
-    rgb: "rgb(251, 68, 67)",
-    half_op: "rgba(251, 68, 67, 0.5)",
-    multiplier: 2000,
+    hex: "#800080",
+    rgb: "rgb(128, 0, 128)",
+    half_op: "rgba(128, 0, 128, 0.5)",
+    multiplier: 3000,
   },
 };
 
@@ -35,8 +35,8 @@ export const sortData = (data) => {
   return sortedData;
 };
 
-export const prettyPrintStat = (stat) =>
-  stat ? `+${numeral(stat).format("0.0a")}` : "+0";
+export const formatNumericsForDisplay = (stat) =>
+  {return `${numeral(stat).format("0,0")}`};
 
 export const showDataOnMap = (data, casesType = "cases") =>
   data.map((country) => (
@@ -44,7 +44,7 @@ export const showDataOnMap = (data, casesType = "cases") =>
       center={[country.countryInfo.lat, country.countryInfo.long]}
       color={casesTypeColors[casesType].hex}
       fillColor={casesTypeColors[casesType].hex}
-      fillOpacity={0.4}
+      fillOpacity={0.1}
       radius={
         Math.sqrt(country[casesType]) * casesTypeColors[casesType].multiplier
       }
@@ -57,13 +57,13 @@ export const showDataOnMap = (data, casesType = "cases") =>
           ></div>
           <div className="info-name">{country.country}</div>
           <div className="info-confirmed">
-            Cases: {numeral(country.cases).format("0,0")}
+            Cases: {formatNumericsForDisplay(country.cases)}
           </div>
           <div className="info-recovered">
-            Recovered: {numeral(country.recovered).format("0,0")}
+            Recovered: {formatNumericsForDisplay(country.recovered)}
           </div>
           <div className="info-deaths">
-            Deaths: {numeral(country.deaths).format("0,0")}
+            Deaths: {formatNumericsForDisplay(country.deaths)}
           </div>
         </div>
       </Popup>
