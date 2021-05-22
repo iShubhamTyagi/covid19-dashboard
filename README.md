@@ -1,6 +1,8 @@
 # React COVID Tracker
 Dashboard to monitor the status of Covid-19 pandemic globally 
 
+API used to fetch data: https://github.com/disease-sh/API.git
+
 Made with :heart: by **Shubham Tyagi**
 
 ## Available Scripts
