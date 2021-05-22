@@ -1,7 +1,7 @@
 # React COVID Tracker
 Dashboard to monitor the status of Covid-19 pandemic globally 
 
-Made with :heart: by [Shubham]
+Made with :heart: by **Shubham Tyagi**
 
 ## Available Scripts
 
